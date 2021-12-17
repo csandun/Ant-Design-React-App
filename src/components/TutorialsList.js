@@ -139,9 +139,51 @@ import { Link } from "react-router-dom";
 // };
 
 
-import { Steps, Button, Row, Form, Input, Col } from 'antd';
+import { Steps, Button, Row, Form, Input, Col, Typography, DatePicker, Divider, InputNumber, Table, message, notification } from 'antd';
+import TextArea from "antd/lib/input/TextArea";
 const { Step } = Steps;
 const { Item } = Form;
+const { Title, Text } = Typography;
+
+const columns = [
+  {
+    title: 'Account Number',
+    dataIndex: 'accountNumber',
+  },
+  {
+    title: 'Description',
+    dataIndex: 'description',
+  },
+  {
+    title: 'Amount',
+    dataIndex: 'amount',
+  },
+];
+
+const data = [
+  {
+    accountNumber: '123456789',
+    description: 'Account 1',
+    amount: "3000.00",
+  },
+  {
+    accountNumber: '26584946655',
+    description: 'Account 2',
+    amount: "1000.00",
+  },
+  {
+    accountNumber: '98432566232',
+    description: 'Account 3',
+    amount: "1000.00",
+  },
+];
+
+const accountDetails = {
+  tax: "12522.00",
+  total: "12000.00",
+}
+
+
 
 const steps = [
   {
@@ -154,15 +196,45 @@ const steps = [
   }
 ]
 
+function errorNotification(form) {
+  let isValied = form.isFieldsValidating();
+  if (!isValied) {
+    notification.open({
+      message: 'Missing Required Fields',
+      description: 'Please fill in all the required fields before proceeding.',
+      type: 'error',
+      style: {
+        backgroundColor: '#ffe8e8',
+        color: '#000000',
+      }
+    });
+  }else{
+    console.log("Form is valid");
+  }
+}
+
+
 
 const TutorialsList = () => {
   const [current, setCurrent] = React.useState(0);
   const [error, setError] = useState(true);
   const [form] = Form.useForm();
+  const [, forceUpdate] = useState({});
 
+  useEffect(() => {
+    forceUpdate({});
+  }, []);
 
   const next = () => {
-    setCurrent(current + 1);
+    form
+      .validateFields()
+      .then(() => {
+        // Here make api call of something else
+        setCurrent(current + 1);
+      })
+      .catch((err) => {
+        errorNotification(form);
+      });
   };
 
   const prev = () => {
@@ -173,45 +245,308 @@ const TutorialsList = () => {
     console.log('Finish:', values);
   };
 
+  const onChange = (date, dateString) => {
+    console.log(date, dateString);
+  }
+
   const handleChange = e => e.target.value && setError(false);
 
-  return (<>
-    <Row>
-      <Col flex="auto">
-        
+  const save = () => {
+    form
+      .validateFields()
+      .then(() => {
+        // Here make api call of something else
+        message.success('Processing complete!')
+      })
+      .catch((err) => errorNotification(form));
+  };
 
-      </Col>
-      <Col flex="150px">
-        <Button
-          type="primary"
-          htmlType="submit"
-          size="large"
-          style={{ margin: '4px', width: '128px' }}
-        >
-          Print
-        </Button>
-      </Col>
-    </Row>
+
+
+  return (<>
     <Steps current={current} type="navigation" step>
       {steps.map((item) => (
         <Step key={item.key} title={item.title} />
       ))}
     </Steps>
-    <div style={{ margin: "100px 10px" }}>
-      <Form form={form} name="horizontal_login" layout="inline" onFinish={onFinish}>
+    <div style={{ margin: "10px 10px" }}>
+      <Form form={form} name="horizontal_login" layout="vertical" onFinish={onFinish}>
         {current === 0 && (
           <>
-            <Item
-              name="firstName"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your first name!"
-                }
-              ]}
-            >
-              <Input placeholder="First Name" onChange={handleChange} />
-            </Item>
+            <Row style={{ marginBottom: '24px' }}>
+              <Col flex="auto">
+                <Title level={4} style={{ marginBottom: '0' }} >Sri Lanka Tourism Development Authority</Title>
+                <Title level={5} style={{ marginTop: '0' }}>System Generated Payment Voucher</Title>
+              </Col>
+              <Col flex="150px">
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  size="large"
+                  style={{ margin: '4px', width: '128px' }}
+                >
+                  Print
+                </Button>
+              </Col>
+            </Row>
+
+            <Row justify="space-between">
+              <Col span={6}>
+                <Item
+                  label="Project Id"
+                  labelAlign="top"
+                  name="projectId"
+                  colon={true}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your project id!"
+                    }
+                  ]}
+                >
+                  <Input placeholder="Project Id" onChange={handleChange} size="large" />
+                </Item>
+              </Col>
+              <Col span={6}>
+                <Item
+                  label="Project Name"
+                  labelAlign="top"
+                  name="projectName"
+                  colon={true}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your project name!"
+                    }
+                  ]}
+                >
+                  <Input placeholder="Project Name" onChange={handleChange} size="large" />
+                </Item>
+              </Col>
+              <Col span={6}>
+                <Item
+                  label="Date"
+                  labelAlign="top"
+                  name="date"
+                  size="large"
+                  colon={true}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your current date!"
+                    }
+                  ]}
+                >
+                  <DatePicker placeholder="Current Date" onChange={onChange} style={{ width: '100%' }} size="large" />
+                  {/* TODO: put default value */}
+                </Item>
+
+              </Col>
+            </Row>
+
+            <Row justify="space-between">
+              <Col span={6}>
+                <Item
+                  label="Recerved From"
+                  labelAlign="top"
+                  name="receivedFrom"
+                  colon={true}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your first name!"
+                    }
+                  ]}
+                >
+                  <Input placeholder="Investor Name" onChange={handleChange} size="large" />
+                </Item>
+              </Col>
+              <Col span={6}>
+                <Item
+                  label="Recerved To"
+                  labelAlign="top"
+                  name="recervedTo"
+                  colon={true}
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your first name!"
+                    }
+                  ]}
+                >
+                  <Input placeholder="MDA Name" onChange={handleChange} size="large" />
+                </Item>
+              </Col>
+              <Col span={6}></Col>
+
+            </Row>
+            <Row>
+              <Table
+                style={{ margin: '0 0 24px 0', width: '100%' }}
+                columns={columns}
+                dataSource={data}
+                pagination={false}
+                bordered
+                summary={pageData => {
+                  let totalTax = accountDetails.tax;
+                  let total = accountDetails.total;
+
+
+
+                  return (
+                    <>
+                      <Table.Summary.Row>
+                        <Table.Summary.Cell colSpan={2} align="center"><Text type="warning" strong="900" size="large">Tax</Text></Table.Summary.Cell>
+                        <Table.Summary.Cell>
+                          <Text strong="900" type="warning" size="large">{totalTax}</Text>
+                        </Table.Summary.Cell>
+                      </Table.Summary.Row>
+                      <Table.Summary.Row >
+                        <Table.Summary.Cell colSpan={2} align="center"><Text strong="900" type="success" size="large">Total</Text></Table.Summary.Cell>
+                        <Table.Summary.Cell>
+                          <Text type="success" strong="900" size="large" >{total}</Text>
+                        </Table.Summary.Cell>
+                      </Table.Summary.Row>
+                    </>
+                  );
+                }}
+              />
+            </Row>
+
+            {/* TODO: add table */}
+
+            <Row justify="space-between">
+              <Col span={6}>
+                <Item
+                  label="Description"
+                  labelAlign="top"
+                  name="description"
+                  colon={true}>
+                  <TextArea placeholder="Description" onChange={handleChange} size="large" />
+                </Item>
+              </Col>
+              <Col span={6}>
+                <Item
+                  label="Sum of Rupees"
+                  labelAlign="top"
+                  name="sumOfRupees"
+                  colon={true}>
+                  <InputNumber
+                    defaultValue={0.00}
+                    addonBefore="Rs"
+                    style={{ width: '100%' }}
+                    size="large"
+                    placeholder="Sub of Rupees"
+                  />
+                </Item>
+              </Col>
+              <Col span={6}>
+              </Col>
+
+
+            </Row>
+
+            <Row justify="space-between">
+              <Col span={6}>
+                <Item
+                  label="Prepared By"
+                  labelAlign="top"
+                  name="preparedBy"
+                  colon={true}
+                >
+                  <Input placeholder="Prepared by" onChange={handleChange} size="large" />
+                </Item>
+              </Col>
+              <Col span={6}>
+                <Item
+                  label="Recommonded By"
+                  labelAlign="top"
+                  name="recommondedBy"
+                  colon={true}
+                >
+                  <Input placeholder="Recommonded By" onChange={handleChange} size="large" />
+                </Item>
+              </Col>
+              <Col span={6}>
+                <Item
+                  label="Checked by"
+                  labelAlign="top"
+                  name="checkedBy"
+                  size="large"
+                  colon={true}
+
+                >
+                  <Input placeholder="Checked By" onChange={handleChange} size="large" />
+                </Item>
+
+              </Col>
+            </Row>
+
+            <Row justify="space-between">
+              <Col span={6}>
+                <Item
+                  label="Approved by"
+                  labelAlign="top"
+                  name="approvedBy"
+                  size="large"
+                  colon={true}
+
+                >
+                  <Input placeholder="Approved By" onChange={handleChange} size="large" />
+                </Item>
+
+              </Col>
+              <Col span={6}>
+                <Item
+                  label="E-Signatureof Approver"
+                  labelAlign="top"
+                  name="esignature"
+                  colon={true}
+                >
+                  <TextArea placeholder="E-Signature of Approver" onChange={handleChange} size="large" />
+                </Item>
+              </Col>
+              <Col span={6}>
+              </Col>
+            </Row>
+
+            <Divider orientation="left">Finance Use Only.</Divider>
+
+            <Row justify="space-between">
+              <Col span={6}>
+                <Item
+                  label="Checked"
+                  labelAlign="top"
+                  name="checked"
+                  colon={true}
+                >
+                  <Input placeholder="Checked" onChange={handleChange} size="large" />
+                </Item>
+              </Col>
+              <Col span={6}>
+                <Item
+                  label="Certified"
+                  labelAlign="top"
+                  name="certified"
+                  colon={true}
+                >
+                  <Input placeholder="Certified" onChange={handleChange} size="large" />
+                </Item>
+              </Col>
+              <Col span={6}>
+                <Item
+                  label="Approved"
+                  labelAlign="top"
+                  name="approved"
+                  colon={true}
+
+                >
+                  <Input placeholder="Approved" onChange={handleChange} size="large" />
+                </Item>
+
+              </Col>
+            </Row>
+
           </>
         )}
 
@@ -236,6 +571,7 @@ const TutorialsList = () => {
           htmlType="submit"
           size="large"
           style={{ margin: '4px', width: '128px' }}
+          onClick={() => save()}
         >
           Save
         </Button>
@@ -253,3 +589,5 @@ const TutorialsList = () => {
 
 
 export default TutorialsList;
+
+

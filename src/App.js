@@ -8,13 +8,13 @@ import AddTutorial from "./components/AddTutorial";
 import Tutorial from "./components/Tutorial";
 import TutorialsList from "./components/TutorialsList";
 
-import { Layout, Menu, Alert, Divider,} from 'antd';
+import { Layout, Menu, Alert, Divider, } from 'antd';
 import Icon from '@ant-design/icons';
-import {AlertFilled, BellOutlined} from '@ant-design/icons';
-
+import { AlertFilled, BellOutlined } from '@ant-design/icons';
+import ReactCustomFlagSelect from 'react-custom-flag-select';
+import "react-custom-flag-select/lib/react-custom-flag-select.min.css";
 
 const { Header, Content, Footer } = Layout;
-
 
 const PandaSvg = () => (
   <svg viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor">
@@ -86,16 +86,16 @@ function App() {
         </div>
       </nav> */}
       <Layout className="layout" style={{ minHeight: "100vh" }}>
-        <Header style={{ position: "fixed", top: "0",width: '100%', zIndex: 100 }} >
+        <Header style={{ position: "fixed", top: "0", width: '100%', zIndex: 100 }} >
           <div className="logo" />
           <Menu theme="light" mode="horizontal" defaultSelectedKeys={['1']}>
-            <Menu.Item key="Home" style={{fontWeight: "500"}}>Home</Menu.Item>
-            <Menu.Item key="add">New Investment</Menu.Item>            
-            <Menu.Item key="3">Common Application</Menu.Item>            
-            <Menu.Item key="4"  style={{ position: 'absolute', top: 0, right: 64 , borderLeft: '1px solid #808080', marginRight: 10}}><BellOutlined  style={{ fontSize: '20px' }}/> </Menu.Item>
-            <Menu.Item key="5" style={{ position: 'absolute', top: 0, right: 0 , borderLeft: '1px solid #808080'}}><PandaIcon style={{ fontSize: '32px' }} /></Menu.Item>
+            <Menu.Item key="Home" style={{ fontWeight: "500" }}>Home</Menu.Item>
+            <Menu.Item key="add">New Investment</Menu.Item>
+            <Menu.Item key="3">Common Application</Menu.Item>          
+            <Menu.Item key="5" style={{ position: 'absolute', top: 0, right: 64, borderLeft: '1px solid #808080', marginRight: 10 }}><BellOutlined style={{ fontSize: '20px' }} /> </Menu.Item>
+            <Menu.Item key="6" style={{ position: 'absolute', top: 0, right: 0, borderLeft: '1px solid #808080' }}><PandaIcon style={{ fontSize: '32px' }} /></Menu.Item>
           </Menu>
-         
+
         </Header>
         <Content style={{ padding: '50px 16px' }}>
           <Alert style={{ margin: '36px 0' }}

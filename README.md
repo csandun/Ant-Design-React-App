@@ -42,4 +42,6 @@ export default axios.create({
 });
 ```
 
+## Screeshot
+![screenshot](https://github.com/csandun/Ant-Design-React-App/blob/master/Capture.PNG)
 

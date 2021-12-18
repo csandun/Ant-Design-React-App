@@ -85,7 +85,7 @@ function App() {
             </Switch>
           </div>
         </Content>
-        <Footer style={{ textAlign: 'left', position: "sticky", bottom: "0", height: "10" }}  id="footer">Test Antd Application ©2021 Created by  CSandun</Footer>
+        <Footer style={{ textAlign: 'left', position: "sticky", bottom: "0", height: "10", zIndex:100}}  id="footer">Test Antd Application ©2021 Created by  CSandun</Footer>
       </Layout>
     </Router>
   );

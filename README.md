@@ -5,6 +5,7 @@ This project is a proof  of concept project for a react app with Ant Design UI a
 ## Used 
 - **Ant Design** - Forms, Steps, Alert, Tables, Validation, DatePicker, Navigation Menu with Layouts, Message, Notifications, Grid systemm, Buttons, 
 - **React redux** -  data load from REST API
+- **Page print**
 
 
 ## Used Techologies
@@ -40,3 +41,5 @@ export default axios.create({
   }
 });
 ```
+
+

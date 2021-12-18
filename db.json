@@ -27,27 +27,27 @@
     "total": 1063,
     "accounts": [
       {
-        "code": "1235644358224",
+        "accountNumber": "1235644358224",
         "description": "account 1",
         "amount": 100
       },
       {
-        "code": "65411564456121",
+        "accountNumber": "65411564456121",
         "description": "account 2",
         "amount": 100
       },
       {
-        "code": "7895455121654",
+        "accountNumber": "7895455121654",
         "description": "account 3",
         "amount": 100
       },
       {
-        "code": "1454363863",
+        "accountNumber": "1454363863",
         "description": "account 4",
         "amount": 100
       },
       {
-        "code": "445464983386",
+        "accountNumber": "445464983386",
         "description": "account 5",
         "amount": 100
       }

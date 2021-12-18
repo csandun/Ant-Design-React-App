@@ -106,3 +106,59 @@
   display: none;
 }
 
+/* print */
+@media print {
+  #header {
+    display: none;
+    visibility: hidden;
+  }
+  #print-button{
+    display: none;
+    visibility: hidden;
+  }
+
+  #operate-buttons{
+    display: none;
+    visibility: hidden;
+  }
+  
+  .ant-picker-input>input::placeholder {
+    display: none;
+    visibility: hidden;
+  }
+
+  .ant-form-item-control-input-content>input::placeholder {
+    display: none;
+    visibility: hidden;
+  }
+
+  .ant-form-item-control-input-content>textarea::placeholder {
+    display: none;
+    visibility: hidden;
+  }
+
+  .ant-alert {
+    display: none;
+    visibility: hidden;
+  }
+
+  .ant-steps{
+    display: none;
+    visibility: hidden;
+  }
+
+  #footer{
+    display: none;
+    visibility: hidden;
+  }
+
+  @page {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+}
+
+
+
+

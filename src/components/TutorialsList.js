@@ -2,141 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   retrieveTutorials,
-  findTutorialsByTitle,
-  deleteAllTutorials,
 } from "../actions/tutorials";
-import { Link } from "react-router-dom";
 
-// const TutorialsList = () => {
-//   const [currentTutorial, setCurrentTutorial] = useState(null);
-//   const [currentIndex, setCurrentIndex] = useState(-1);
-//   const [searchTitle, setSearchTitle] = useState("");
-
-//   const tutorials = useSelector(state => state.tutorials);
-//   const dispatch = useDispatch();
-
-//   useEffect(() => {
-//     dispatch(retrieveTutorials());
-//   }, []);
-
-//   const onChangeSearchTitle = e => {
-//     const searchTitle = e.target.value;
-//     setSearchTitle(searchTitle);
-//   };
-
-//   const refreshData = () => {
-//     setCurrentTutorial(null);
-//     setCurrentIndex(-1);
-//   };
-
-//   const setActiveTutorial = (tutorial, index) => {
-//     setCurrentTutorial(tutorial);
-//     setCurrentIndex(index);
-//   };
-
-//   const removeAllTutorials = () => {
-//     dispatch(deleteAllTutorials())
-//       .then(response => {
-//         console.log(response);
-//         refreshData();
-//       })
-//       .catch(e => {
-//         console.log(e);
-//       });
-//   };
-
-//   const findByTitle = () => {
-//     refreshData();
-//     dispatch(findTutorialsByTitle(searchTitle));
-//   };
-
-//   return (
-//     <div className="list row">
-//       <div className="col-md-8">
-//         <div className="input-group mb-3">
-//           <input
-//             type="text"
-//             className="form-control"
-//             placeholder="Search by title"
-//             value={searchTitle}
-//             onChange={onChangeSearchTitle}
-//           />
-//           <div className="input-group-append">
-//             <button
-//               className="btn btn-outline-secondary"
-//               type="button"
-//               onClick={findByTitle}
-//             >
-//               Search
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//       <div className="col-md-6">
-//         <h4>Tutorials List</h4>
-
-//         <ul className="list-group">
-//           {tutorials &&
-//             tutorials.map((tutorial, index) => (
-//               <li
-//                 className={
-//                   "list-group-item " + (index === currentIndex ? "active" : "")
-//                 }
-//                 onClick={() => setActiveTutorial(tutorial, index)}
-//                 key={index}
-//               >
-//                 {tutorial.title}
-//               </li>
-//             ))}
-//         </ul>
-
-//         <button
-//           className="m-3 btn btn-sm btn-danger"
-//           onClick={removeAllTutorials}
-//         >
-//           Remove All
-//         </button>
-//       </div>
-//       <div className="col-md-6">
-//         {currentTutorial ? (
-//           <div>
-//             <h4>Tutorial</h4>
-//             <div>
-//               <label>
-//                 <strong>Title:</strong>
-//               </label>{" "}
-//               {currentTutorial.title}
-//             </div>
-//             <div>
-//               <label>
-//                 <strong>Description:</strong>
-//               </label>{" "}
-//               {currentTutorial.description}
-//             </div>
-//             <div>
-//               <label>
-//                 <strong>Status:</strong>
-//               </label>{" "}
-//               {currentTutorial.published ? "Published" : "Pending"}
-//             </div>
-
-//             <Link
-//               to={"/tutorials/" + currentTutorial.id}
-//               className="badge badge-warning"
-//             >
-//               Edit
-//             </Link>
-//           </div>
-//         ) : (
-//           <div>
-//             <br />
-//             <p>Please click on a Tutorial...</p>
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
 
 
 import { Steps, Button, Row, Form, Input, Col, Typography, DatePicker, Divider, InputNumber, Table, message, notification } from 'antd';
@@ -159,31 +26,6 @@ const columns = [
     dataIndex: 'amount',
   },
 ];
-
-const data = [
-  {
-    accountNumber: '123456789',
-    description: 'Account 1',
-    amount: "3000.00",
-  },
-  {
-    accountNumber: '26584946655',
-    description: 'Account 2',
-    amount: "1000.00",
-  },
-  {
-    accountNumber: '98432566232',
-    description: 'Account 3',
-    amount: "1000.00",
-  },
-];
-
-const accountDetails = {
-  tax: "12522.00",
-  total: "12000.00",
-}
-
-
 
 const steps = [
   {
@@ -208,7 +50,7 @@ function errorNotification(form) {
         color: '#000000',
       }
     });
-  }else{
+  } else {
     console.log("Form is valid");
   }
 }
@@ -219,17 +61,19 @@ const TutorialsList = () => {
   const [current, setCurrent] = React.useState(0);
   const [error, setError] = useState(true);
   const [form] = Form.useForm();
-  const [, forceUpdate] = useState({});
 
   useEffect(() => {
-    forceUpdate({});
+    dispatch(retrieveTutorials());
   }, []);
+
+
+  const accountDetails = useSelector(state => state.tutorials);  
+  const dispatch = useDispatch();
 
   const next = () => {
     form
       .validateFields()
       .then(() => {
-        // Here make api call of something else
         setCurrent(current + 1);
       })
       .catch((err) => {
@@ -255,13 +99,15 @@ const TutorialsList = () => {
     form
       .validateFields()
       .then(() => {
-        // Here make api call of something else
-        message.success('Processing complete!')
+        // Here make api call of something else       
+        message.success('Save complete!')
       })
       .catch((err) => errorNotification(form));
   };
 
-
+  const print = () => {
+    window.print();
+  };
 
   return (<>
     <Steps current={current} type="navigation" step>
@@ -281,9 +127,10 @@ const TutorialsList = () => {
               <Col flex="150px">
                 <Button
                   type="primary"
-                  htmlType="submit"
                   size="large"
                   style={{ margin: '4px', width: '128px' }}
+                  id="print-button"
+                  onClick={() => print()}
                 >
                   Print
                 </Button>
@@ -384,15 +231,12 @@ const TutorialsList = () => {
               <Table
                 style={{ margin: '0 0 24px 0', width: '100%' }}
                 columns={columns}
-                dataSource={data}
+                dataSource={accountDetails.accounts}
                 pagination={false}
                 bordered
                 summary={pageData => {
                   let totalTax = accountDetails.tax;
                   let total = accountDetails.total;
-
-
-
                   return (
                     <>
                       <Table.Summary.Row>
@@ -520,7 +364,7 @@ const TutorialsList = () => {
                   name="checked"
                   colon={true}
                 >
-                  <Input placeholder="Checked" onChange={handleChange} size="large" />
+                  <Input placeholder="Checked" onChange={handleChange} size="large" id="eeee" />
                 </Item>
               </Col>
               <Col span={6}>
@@ -559,7 +403,7 @@ const TutorialsList = () => {
         )}
       </Form>
     </div>
-    <Row className="steps-action" style={{ float: "" }} justify="center">
+    <Row className="steps-action" style={{ float: "" }} justify="center" id="operate-buttons">
       {current < steps.length - 1 && (
         <Button style={{ margin: '4px', width: '128px' }} onClick={() => next()} size='large'>
           Next

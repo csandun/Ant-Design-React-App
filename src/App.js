@@ -86,7 +86,7 @@ function App() {
         </div>
       </nav> */}
       <Layout className="layout" style={{ minHeight: "100vh" }}>
-        <Header style={{ position: "fixed", top: "0", width: '100%', zIndex: 100 }} >
+        <Header style={{ position: "fixed", top: "0", width: '100%', zIndex: 100 }} id="header">
           <div className="logo" />
           <Menu theme="light" mode="horizontal" defaultSelectedKeys={['1']}>
             <Menu.Item key="Home" style={{ fontWeight: "500" }}>Home</Menu.Item>
@@ -102,7 +102,7 @@ function App() {
             message="Welcome to CSandun"
             description="Logged in as Admin"
             type="success"
-            closable
+            closable           
           />
           <div className="site-layout-content mt-5 mb-1">
             <Switch>
@@ -112,7 +112,7 @@ function App() {
             </Switch>
           </div>
         </Content>
-        <Footer style={{ textAlign: 'left', position: "sticky", bottom: "0", height: "10" }}>Ant Design ©2021 Created by </Footer>
+        <Footer style={{ textAlign: 'left', position: "sticky", bottom: "0", height: "10" }}  id="footer">Ant Design ©2021 Created by </Footer>
       </Layout>
     </Router>
   );

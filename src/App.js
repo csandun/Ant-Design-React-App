@@ -2,14 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { Button } from 'antd';
-
 import PaymentVoucher from "./components/PaymentVoucher";
-
-import { Layout, Menu, Alert, Divider, } from 'antd';
+import { Layout, Menu, Alert, } from 'antd';
 import Icon from '@ant-design/icons';
-import { AlertFilled, BellOutlined } from '@ant-design/icons';
-import ReactCustomFlagSelect from 'react-custom-flag-select';
+import {  BellOutlined } from '@ant-design/icons';
 import "react-custom-flag-select/lib/react-custom-flag-select.min.css";
 
 const { Header, Content, Footer } = Layout;
@@ -89,7 +85,7 @@ function App() {
             </Switch>
           </div>
         </Content>
-        <Footer style={{ textAlign: 'left', position: "sticky", bottom: "0", height: "10" }}  id="footer">Ant Design ©2021 Created by </Footer>
+        <Footer style={{ textAlign: 'left', position: "sticky", bottom: "0", height: "10" }}  id="footer">Test Antd Application ©2021 Created by  CSandun</Footer>
       </Layout>
     </Router>
   );

@@ -4,9 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Button } from 'antd';
 
-import AddTutorial from "./components/AddTutorial";
-import Tutorial from "./components/Tutorial";
-import TutorialsList from "./components/TutorialsList";
+import PaymentVoucher from "./components/PaymentVoucher";
 
 import { Layout, Menu, Alert, Divider, } from 'antd';
 import Icon from '@ant-design/icons';
@@ -66,25 +64,7 @@ const PandaIcon = props => <Icon component={PandaSvg} {...props} />;
 
 function App() {
   return (
-    <Router>
-      {/* <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <a href="/tutorials" className="navbar-brand">
-          bezKoder
-        </a>
-        <Button type="primary">Button</Button>
-        <div className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <Link to={"/tutorials"} className="nav-link">
-              Tutorials
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to={"/add"} className="nav-link">
-              Add
-            </Link>
-          </li>
-        </div>
-      </nav> */}
+    <Router>      
       <Layout className="layout" style={{ minHeight: "100vh" }}>
         <Header style={{ position: "fixed", top: "0", width: '100%', zIndex: 100 }} id="header">
           <div className="logo" />
@@ -95,7 +75,6 @@ function App() {
             <Menu.Item key="5" style={{ position: 'absolute', top: 0, right: 64, borderLeft: '1px solid #808080', marginRight: 10 }}><BellOutlined style={{ fontSize: '20px' }} /> </Menu.Item>
             <Menu.Item key="6" style={{ position: 'absolute', top: 0, right: 0, borderLeft: '1px solid #808080' }}><PandaIcon style={{ fontSize: '32px' }} /></Menu.Item>
           </Menu>
-
         </Header>
         <Content style={{ padding: '50px 16px' }}>
           <Alert style={{ margin: '36px 0' }}
@@ -106,9 +85,7 @@ function App() {
           />
           <div className="site-layout-content mt-5 mb-1">
             <Switch>
-              <Route exact path={["/", "/Home"]} component={TutorialsList} />
-              <Route exact path="/add" component={AddTutorial} />
-              <Route path="/tutorials/:id" component={Tutorial} />
+              <Route exact path={["/", "/Home"]} component={PaymentVoucher} />              
             </Switch>
           </div>
         </Content>

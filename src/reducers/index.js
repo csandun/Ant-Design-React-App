@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import tutorials from "./tutorials";
+import accountDetails from "./accountDetails";
 
 export default combineReducers({
-  tutorials,
+  accountDetails,
 });

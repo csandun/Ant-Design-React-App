@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  retrieveTutorials,
-} from "../actions/tutorials";
+  retrieveAccountDetails,
+} from "../actions/acoountDetails";
 
 
 
@@ -57,17 +57,17 @@ function errorNotification(form) {
 
 
 
-const TutorialsList = () => {
+const PaymentVoucher = () => {
   const [current, setCurrent] = React.useState(0);
   const [error, setError] = useState(true);
   const [form] = Form.useForm();
 
   useEffect(() => {
-    dispatch(retrieveTutorials());
+    dispatch(retrieveAccountDetails());
   }, []);
 
 
-  const accountDetails = useSelector(state => state.tutorials);  
+  const accountDetails = useSelector(state => state.accountDetails);  
   const dispatch = useDispatch();
 
   const next = () => {
@@ -432,6 +432,6 @@ const TutorialsList = () => {
 }
 
 
-export default TutorialsList;
+export default PaymentVoucher;
 
 
